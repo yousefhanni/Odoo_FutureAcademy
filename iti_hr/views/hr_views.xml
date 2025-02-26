@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+      <record id="hr_employee_tree_inherit" model="ir.ui.view">
+           <field name="name">HR Employee tree inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+               <!-- <field name="parent_id" position="after">
+                    <field name="gender"/>
+                </field> -->
+
+                <!-- OR-->
+                 <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="gender"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">HR Employee inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>  <!-- define odoo that inherit from this view and customize on it (hr.view_employee_form)"-->
+            <field name="arch" type="xml">                
+                <!-- Make country_of_birth a required field -->
+                <field name="country_of_birth" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+
+                 <!-- <field name="country_of_birth" position="after">
+                    <field name="military_certificate"/>
+                </field> -->
+                            
+                <!-- OR --> 
+                <!-- say => to put this field military_certificate (inside) page number 1 and default put last field--> 
+                 <xpath expr="//page[2]" position="inside">
+                   <group>
+                    <field name="military_certificate"/>
+                   </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

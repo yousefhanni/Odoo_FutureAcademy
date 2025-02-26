@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+    <!-- Custom Tree View for iti.student -->
+        <record id="tracks_tree_view" model="ir.ui.view">
+            <field name="name">Tracks Tree View</field>
+            <field name="model">iti.track</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="capacity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tracks_form_view" model="ir.ui.view">
+            <field name="name">Tracks Form View</field>
+            <field name="model">iti.track</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                 <group>
+                    <field name="name"/>
+                    <field name="capacity"/>
+                    <field name="is_open"/>
+                    <field name="student_ids"/>
+                </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+      <record id="iti_track_action" model="ir.actions.act_window">
+            <!-- The name of the action as it will appear in Odoo -->
+            <field name="name">Tracks</field>  
+            <!-- The model (table) to be linked to this action, in this case, the iti.student model -->
+            <field name="res_model">iti.track</field>
+        </record>
+
+ <menuitem id="iti_tracks_menu" name="Tracks" 
+        parent="iti_root" action="iti_track_action" groups="iti.iti_manager_group"/>
+    </data>
+</odoo>

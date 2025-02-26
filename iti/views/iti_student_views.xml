@@ -1,0 +1,90 @@
+<odoo>
+	<data>
+          <record id="students_tree_view" model="ir.ui.view">
+            <field name="name">Students Tree View</field>
+            <field name="model">iti.student</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="birth_date"/>
+                    <field name="salary"/>
+                    <field name="tax_salary"/>
+                </tree>
+            </field>
+        </record>
+
+	
+       <record id="students_form_view" model="ir.ui.view">
+            <field name="name">Students Form View</field>
+            <field name="model">iti.student</field>
+            <field name="arch" type="xml">
+                <form>
+                
+            <header>
+             <button string="Set First Interview" name="change_state" type="object"
+                     invisible="state != 'applied'"/>
+             <button string="Set Second Interview" name="change_state" type="object"
+                     invisible="state != 'first'"/>
+             <button string="Passed" name="set_passed" type="object"
+                     invisible="state != 'second'"/>
+             <button string="Rejected" name="set_rejected" type="object"
+                     invisible="state != 'second'"/>
+             <button string="Back to Applied" name="change_state" type="object"
+                     invisible="state not in ('passed', 'rejected')"/>
+            </header>
+                    <sheet>
+                        <group>
+                            <group string="Basic Info">
+                                <field name="name"/>
+                                <field name="email"/>    
+                               <field name="birth_date"/> 
+                                <field name="salary"/>
+                                <field name="tax_salary"/>
+                                <field name="state"/>
+                                <field name="gender"/>
+                                <field name="skills_ids" widget="many2many_tags"/>  <!-- Correctly closing the widget field -->
+                            </group>
+                            <group string="ITI Info">
+                                <field name="accepted"/>
+                                <field name="level"/>
+                                <field name="image" widget="image"/>
+                                <field name="gpa"/>
+                                <field name="login_time"/>
+                                <field name="track_id" domain ="[('is_open','=','True')]" groups="iti.iti_manager_group"/> <!-- restrict normal user -->
+                                <field name="track_capacity"/>
+                            </group>
+                        </group>
+						<notebook>
+							<page string="CV">
+								<field name="cv" />
+							</page>
+							<page string="Address">
+								<field name="address" />
+							</page>
+							<!-- Add the Many2many field for courses here -->
+							<page string="Grades">
+								<field name="student_course_grades_ids">
+									<tree>
+										<field name="course_id" />
+										<field name="grade" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- Define an action for opening the 'Students' view -->
+		<record id="students_action" model="ir.actions.act_window">
+			<!-- The name of the action as it will appear in Odoo -->
+			<field name="name"> Students</field>
+			<!-- The model (table) to be linked to this action, in this case, the iti.student model -->
+			<field name="res_model">iti.student</field>
+		</record>
+		<!-- Root Menu -->
+		<menuitem id="iti_root" name="ITI" />
+		<!-- Students Menu (Child of iti_root) -->
+		<menuitem id="iti_students_menu" name="Students" parent="iti_root" action="students_action" />
+	</data>
+</odoo>

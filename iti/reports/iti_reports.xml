@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <!-- Define the report action -->
+        <record id="action_iti_student_report" model="ir.actions.report">
+            <field name="name">Students Report</field>
+            <field name="model">iti.student</field>
+            <field name="report_name">iti.iti_student_template</field>
+            <field name="report_type">qweb-html</field>
+            <field name="binding_model_id" ref="model_iti_student"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
+
+
+<!-- name="iti.iti_student_template":Name of the QWeb template used for generating the report -->
